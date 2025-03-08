@@ -8,7 +8,6 @@
  * @since Free News And Magazine 1.0
  */
  (function(){
-
    if (!defined("theme_dir")) define("theme_dir",__DIR__);
    if (!defined("theme_lang")) define("theme_lang","free_news_and_magazine");
    if (!defined("theme_uri")) define("theme_uri",get_template_directory_uri());
@@ -16,7 +15,6 @@
     "core/defines",
     "core/cleartheme"
   ];
-
   foreach ($requires as $value) {
     require_once theme_dir . "/{$value}.php";
   }
