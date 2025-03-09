@@ -13,7 +13,8 @@
    if (!defined("theme_uri")) define("theme_uri",get_template_directory_uri());
   $requires = [
     "core/defines",
-    "core/cleartheme"
+    "core/functions",
+    "core/cleartheme",
   ];
   foreach ($requires as $value) {
     require_once theme_dir . "/{$value}.php";

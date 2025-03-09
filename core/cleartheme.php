@@ -9,11 +9,16 @@
       add_filter("wp_img_tag_add_auto_sizes","__return_false");
       add_filter('style_loader_src', [$this,'remove_file_version']);
       add_filter('script_loader_src', [$this,'remove_file_version']);
+
+      //make relative paths;
+      add_filter('post_link','clear_home_url');
+      add_filter('clean_url','clear_home_url');
+
     }
     public function remove_file_version($src){
       if ( strpos( $src, 'ver=' . get_bloginfo( 'version' ) ) )
         $src = remove_query_arg( 'ver', $src );
-      return $src;
+      return clear_home_url($src);
     }
     public function initials(){
       $lang = theme_dir . '/languages';
