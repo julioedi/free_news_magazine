@@ -4,8 +4,14 @@ $paths = array(
  "img" =>"/assets/img",
  "css" => "/assets/css",
  "js"  => "/assets/js",
+ "fonts"  => "/assets/fonts",
  "templates" => "/templates",
 );
+
+if (!defined("theme_domain")) {
+  define("theme_domain", "theme_free_news");
+}
+
 if (!defined("is_localhost")) {
   define("is_localhost", preg_match("/^(localhost|(\d\.)+)/",($_SERVER["HTTP_HOST"] ?? ""), $matches, PREG_OFFSET_CAPTURE));
 }

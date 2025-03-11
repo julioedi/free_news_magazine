@@ -15,6 +15,7 @@
     "core/defines",
     "core/functions",
     "core/cleartheme",
+    "core/roles",
   ];
   foreach ($requires as $value) {
     require_once theme_dir . "/{$value}.php";
