@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 echo "<!DOCTYPE html><html " . get_language_attributes("html") . '><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0">';
 do_action("before_frontend_head");
+echo '<link rel="stylesheet" href="' . theme_fonts_uri . '/roboto/load.css">';
 do_action( 'wp_head' );
 echo '<link rel="stylesheet" href="' . clear_home_url(theme_css_uri) . '/">';
 do_action("after_frontend_head");
@@ -35,7 +36,6 @@ if (!empty($bodyAtts)) {
 }else{
   $bodyAtts = "";
 }
-
 echo "</head>";
 echo "<body{$bodyClass}{$bodyAtts}>";
 do_action( 'wp_body_open' );
