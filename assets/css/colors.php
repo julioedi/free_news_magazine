@@ -33,6 +33,7 @@ foreach ($customColors as $key => $value) {
     $colors[$key] = $value;
   }
 }
+header("Content-type: text/css", true);
 echo "/*--palette-colors--*/\n";
 $codesList = [];
 echo ":root{";
