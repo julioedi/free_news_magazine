@@ -84,3 +84,4 @@ function updatefront(string $content = ""){
 
   return $fontlist;
 }
+require_once theme_dir . "/core/custom_functions/upload_from_url.php";

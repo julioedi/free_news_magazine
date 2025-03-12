@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Tecnología",
+        "thumb_id": 201
+    },
+    {
+        "id": 2,
+        "title": "Cultura",
+        "thumb_id": 202
+    },
+    {
+        "id": 3,
+        "title": "Deportes",
+        "thumb_id": 203
+    },
+    {
+        "id": 4,
+        "title": "Cine",
+        "thumb_id": 204
+    },
+    {
+        "id": 5,
+        "title": "Música",
+        "thumb_id": 205
+    },
+    {
+        "id": 6,
+        "title": "Ciencia",
+        "thumb_id": 206
+    },
+    {
+        "id": 7,
+        "title": "Salud",
+        "thumb_id": 207
+    },
+    {
+        "id": 8,
+        "title": "Economía",
+        "thumb_id": 208
+    },
+    {
+        "id": 9,
+        "title": "Política",
+        "thumb_id": 209
+    },
+    {
+        "id": 10,
+        "title": "Arte",
+        "thumb_id": 210
+    }
+]
