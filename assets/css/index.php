@@ -8,4 +8,43 @@
 define("root",__DIR__);
 header("Content-type: text/css", true);
 header('Content-Disposition: inline; filename="style.css"');
+echo ":root{";
 require_once root . "/colors.php";
+echo "\n/*--spaces--*/\n";
+for ($i=0; $i < 20 ; $i++) {
+  $size = $i * 4;
+  echo "--sp-${i}:{$size}px;";
+}
+echo "}\n";
+
+function compressCss(string $css =''){
+  //remove comments
+  $css = preg_replace("/\/\/+.*?\n/","",$css);
+  $css = preg_replace("/(\n+|\r+|\t+)/","",$css);
+  $css = preg_replace("/\/\*(.*?)\*\//","",$css);
+  //
+  // //remove extra spaces
+  $ch = "(\}|\;|\:|\{)";
+  $css = preg_replace("/\s+$ch/","$1",$css);
+  $css = preg_replace("/$ch\s+/","$1",$css);
+  $css = preg_replace("/;}/","}",$css);
+
+  return $css;
+}
+$file = $_GET["file"] ?? "desktop";
+if (is_string($file)) {
+  $path = root ."/$file.css";
+  if (file_exists($path)) {
+    $print = file_get_contents($path);
+    echo compressCss($print);
+  }
+}
+if (is_array($file)) {
+  foreach ($file as $value) {
+    $path = root ."/$value.css";
+    if (file_exists($path)) {
+      $print = file_get_contents($path);
+      echo compressCss($print);
+    }
+  }
+}

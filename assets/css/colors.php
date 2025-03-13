@@ -33,10 +33,8 @@ foreach ($customColors as $key => $value) {
     $colors[$key] = $value;
   }
 }
-header("Content-type: text/css", true);
-echo "/*--palette-colors--*/\n";
+echo "\n/*--palette-colors--*/\n";
 $codesList = [];
-echo ":root{";
 foreach ($colors as $code => $value) {
   if (isset($value["color"])) {
     $codesList[$code] = $value["color"];
@@ -55,4 +53,3 @@ foreach ($customCodes as $key => $value) {
     echo "--{$key}:{$value};";
   }
 }
-echo "}";
