@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 echo "<!DOCTYPE html><html " . get_language_attributes("html") . '><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0">';
 do_action("before_frontend_head");
-echo '<link rel="stylesheet" href="' . theme_fonts_uri . '/roboto/load.css">';
 do_action( 'wp_head' );
-echo '<link rel="stylesheet" href="' . clear_home_url(theme_css_uri) . '/">';
+echo enqueue_font_awesome();
+echo enqueue_general_css();
 do_action("after_frontend_head");
 
 $bodyClass = esc_attr( implode( ' ', get_body_class() ) );
@@ -38,4 +38,8 @@ if (!empty($bodyAtts)) {
 }
 echo "</head>";
 echo "<body{$bodyClass}{$bodyAtts}>";
+do_action( 'frontend/header/before' );
+require_once(theme_dir . "/templates/header.php");
+do_action( 'frontend/header/after' );
+echo "<main>";
 do_action( 'wp_body_open' );

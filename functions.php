@@ -13,8 +13,11 @@
    if (!defined("theme_uri")) define("theme_uri",get_template_directory_uri());
   $requires = [
     "core/defines",
+    // "core/meta_tables",
+    "core/storedData",
     "core/functions",
     "core/cleartheme",
+    "core/theme",
     "core/roles",
   ];
   foreach ($requires as $value) {
