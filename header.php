@@ -43,6 +43,3 @@ require_once(theme_dir . "/templates/header.php");
 do_action( 'frontend/header/after' );
 echo "<main>";
 do_action( 'wp_body_open' );
-global $storedData;
-print_r($storedData);
-echo "waaa";

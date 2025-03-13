@@ -6,10 +6,10 @@ $customColors = json_decode(
 );
 
 $codes = array(
-  "primary" => "blue",
+  "primary" => "red",
   "secondary" => "purple",
   "success" => "green",
-  "danger" => "red",
+  "danger" => "yellow",
 );
 
 $customCodes = file_exists(root . "/selections.json") ? file_get_contents(root . "/selections.json") : '{}';

@@ -3,7 +3,21 @@ General styles
 ----------------------------------------*/
 :root{
   --body-font: "Roboto",sans-serif;
+  --font-color: #121212;
   --body-size: var(--sp-4);
+  --border-divisor: rgba(0,0,0,0.12);
+  --profile-size: var(--sp-12);
+  --body-bkg: #fff;
+  --body-bkg-card: var(--gray-100);
+  --shadow-color: color-mix(in srgb, var(--primary), transparent 80%);
+  --primary-100: color-mix(in srgb, var(--primary), transparent 80%);
+  --primary-200: color-mix(in srgb, var(--primary), transparent 60%);
+  --primary-300: color-mix(in srgb, var(--primary), transparent 40%);
+  --transition: 0.3s ease all;
+}
+/* Shadow */
+:root{
+  --shadow: 0 4px 32px;
 }
 .full-center{
   display: flex;
@@ -25,6 +39,8 @@ body {
   margin: 0;
   min-height: 100vh;
   display: grid;
+  background-color: var(--body-bkg);
+  color: var(--font-color);
   grid-auto-rows: auto 1fr auto;
   font-size: var(--body-size);
 }
@@ -36,7 +52,7 @@ body.admin-bar{
   min-height: calc(100vh - 32px);
 }
 .mws{
-  max-width: 1200px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -47,13 +63,57 @@ a{
   color: inherit;
   text-decoration: none;
 }
-/*
-  header style
-*/
+
+/* ----------------------------------------
+Profile_images
+----------------------------------------*/
+.profile_image{
+  display: inline-flex;
+  font-size:var(--profile-size);
+  width: 1em;
+  height: 1em;
+  position: relative;
+  border-radius: 0.25em;
+  border: 1px solid var(--border-divisor);
+  overflow: hidden;
+}
+.profile_image img{
+  position: absolute;
+  inset:0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ----------------------------------------
+buttons
+----------------------------------------*/
+.icon_btn{
+  display: inline-flex;
+  font-size:var(--profile-size);
+  width: 1em;
+  height: 1em;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray-100);
+  border-radius: 0.25em;
+}
+.icon_btn *{
+  font-size: 0.4em;
+}
+
+/* ----------------------------------------
+Header
+----------------------------------------*/
+#main_header{
+  z-index: 999999;
+}
 #main_header>.wrap{
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-4);
+  gap: var(--sp-6);
   align-items: center;
   padding: var(--sp-6) 0;
 }
@@ -69,12 +129,12 @@ a{
 #main_search{
   width: 100%;
   max-width: 360px;
-  background-color: var(--gray-200);
+  background-color: var(--gray-100);
   border-radius: var(--sp-3);
   display: grid;
-  grid-template-columns: 1fr var(--sp-12);
+  grid-template-columns: 1fr var(--profile-size);
   gap:var(--sp-1);
-  height: var(--sp-12);
+  height: var(--profile-size);
   align-items: center;
 }
 #main_search input{
@@ -83,4 +143,69 @@ a{
   border:none;
   outline:none;
   padding:0 var(--sp-4);
+}
+
+#header_account{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: center;
+  position: relative;
+}
+#header_account .name{
+  display: flex;
+  gap: var(--sp-2);
+  padding-right: var(--sp-6);
+}
+#header_account .name .expand{
+  color: var(--gray-500);
+}
+#header_account .container{
+  position: absolute;
+  pointer-events: none;
+  top: 100%;
+  right:0;
+  min-width: 100%;
+  padding-top: var(--sp-12);
+  transition: var(--transition);
+  opacity: 0;
+  width: max-content;
+}
+#header_account:hover .container{
+  padding-top: var(--sp-3);
+  opacity: 1;
+  pointer-events: all;
+}
+#header_account #account_links{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  display: grid;
+  gap: var(--sp-4);
+  border-radius: var(--sp-3);
+  background-color: var(--body-bkg);
+  padding: var(--sp-1) var(--sp-3);
+  box-shadow: var(--shadow) var(--shadow-color);
+}
+#header_account #account_links li{
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  transition: var(--transition);
+  padding: var(--sp-3);
+  border-radius: var(--sp-2);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+}
+#header_account #account_links li:hover{
+  color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary), transparent 95%);
+}
+
+#header_account #account_links li.active{
+  cursor: normal;
+  color: #fff;
+  background-color: var(--primary);
 }
