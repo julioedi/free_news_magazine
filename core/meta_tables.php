@@ -15,9 +15,6 @@ foreach ($categories as $key => $value) {
   }
   $categories[$key] = (array) $cat;
 
-  // echo "<pre>";
-  // print_r(["data" => $cat]);
-  // echo "</pre>";
 }
 // foreach ($categories as $key => $value) {
 //   // code...
@@ -43,4 +40,3 @@ foreach ($articles as &$value) {
   // $value = $my_post;
   // wp_insert_post($my_post);
 }
-print_r($articles);

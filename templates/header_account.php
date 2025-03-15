@@ -17,6 +17,3 @@ $account .= "<div class=\"container\">$list</div>";
 $account .= '</div>';
 
 $account .= "<div class=\"bookmarks icon_btn\"><i class=\"fa-regular fa-bookmark\"></i></div>";
-
-
-// $account .= "<pre>" . print_r($user,true) . "</pre>";

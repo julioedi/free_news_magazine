@@ -1,7 +1,13 @@
 <?php
-(function(){
 
+foreach ([
+  "categories"
+] as $value) {
+  require_once theme_dir . "/core/traits/{$value}.php";
+}
+(function(){
   class ThemStoredData{
+    use Categories;
     public $currentuser = null;
     public $users = [];
     public $posts = [];
@@ -14,13 +20,18 @@
     public $theme_dark = null;
     public $def_img_uri = "";
     public $def_image_alt = "";
+    public $paths = array();
     public $def_image_sizes = array(
       "large" => [1280,720],
       'medium_large' =>[720,405],
       'medium' => [480,270],
       "thumbnail" => [266,150]
     );
+
+
+
     public function __construct(){
+      $this->define_paths();
       $this->get_request();
       $this->define_home();
       $this->default_image_data();
@@ -46,6 +57,15 @@
           'title' => __("Log out",theme_lang),
         ),
       );
+    }
+    public function define_paths(){
+      $reg = "/\\\\/i";
+      $path = preg_replace($reg,"/",mb_strtolower(ABSPATH));
+      $dir = preg_replace($reg,"/",mb_strtolower(theme_assets_dir));
+      $this->paths["assets"] =  str_replace($path,"",$dir);
+      $uploads = preg_replace($reg,"/",mb_strtolower(wp_upload_dir()["basedir"]));
+
+      $this->paths["uploads"] = str_replace($path,"",$uploads);
     }
 
     public function default_image_data(){

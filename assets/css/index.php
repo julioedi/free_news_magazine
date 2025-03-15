@@ -41,8 +41,8 @@ function get_file(string $value = ""){
 
 $files_list = [];
 $file = $_GET["file"] ?? "desktop";
-if (!is_array($file)) {
-  $file = [$file];
+if (is_string($file)) {
+  $file = explode(",",$file);
 }
 $importReg = '/@import\s+[\"|\'](.*?)\.css[\"|\'].*?(;\n|;\s+\n|\n|)/';
 
@@ -61,6 +61,6 @@ foreach ($file as $value) {
       if (!$tmp) continue;
       $css = str_replace($item[0][$key],$tmp,$css);
     }
-    echo compressCss($css);
   }
+  echo compressCss($css);
 }
