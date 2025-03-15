@@ -5,8 +5,19 @@
       add_action("after_theme_setup",[$this,"init"]);
       add_action("show_password_fields",[$this,"add_custom_user_profile"],10,2);
       add_action("admin_head",[$this,'admin_head']);
+      add_action('request', [$this,"custom_search_link"]);
     }
 
+    public function custom_search_link($query_vars){
+      global $storedData;
+      if (isset($storedData->request)) {
+        $search = $storedData->get_option("search_path","search");
+        if (preg_match("/^\/$search\/(.*?)(\/|$)/", $storedData->request, $matches)) {
+            $query_vars['s'] = sanitize_text_field(urldecode($matches[1]));
+        }
+      }
+      return $query_vars;
+    }
     public function admin_head(){
       global $pagenow;
       echo enqueue_font_awesome();
@@ -50,6 +61,7 @@
 
     public function init(){
       $this->register_menus();
+      add_theme_support( 'title-tag' );
     }
   }
   new Theme();

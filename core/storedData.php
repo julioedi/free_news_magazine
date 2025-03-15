@@ -9,8 +9,11 @@
     public $accountLinks = [];
     public $request = null;
     public $uri = null;
+    public $home_url = null;
+    public $options = [];
     public function __construct(){
       $this->get_request();
+      $this->define_home();
       $this->accountLinks = array(
         'edit' => array(
           'link' => "/account/edit/",
@@ -34,7 +37,16 @@
         ),
       );
     }
+    public function get_option($option, $default_value = false){
+      if (!isset($this->options[$option])) {
+        $this->options[$option] = get_option( $option, $default_value);
+      }
+      return $this->options[$option];
+    }
+    public function define_home(){
+      $this->home_url = get_home_url();
 
+    }
     public function get_request(){
       if ($this->request) {
         return $this->request;

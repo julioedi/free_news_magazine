@@ -1,6 +1,7 @@
 /* ----------------------------------------
 General styles
 ----------------------------------------*/
+@import "forms.css";
 :root{
   --body-font: "Roboto",sans-serif;
   --font-color: #121212;
@@ -48,6 +49,18 @@ input{
   font-family: var(--body-font);
   font-size: var(--body-size);
 }
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:-internal-autofill-selected{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: inherit;
+    transition: background-color 0s 600000s !important;
+    box-shadow: inherit !important;
+}
+
 body.admin-bar{
   min-height: calc(100vh - 32px);
 }
