@@ -9,6 +9,7 @@
                 <li>
                     <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                     <p><?php the_excerpt(); ?></p>
+                    <?php echo wp_get_attachment_image(0,"thumbnail") ?>
                 </li>
             <?php endwhile; ?>
         </ul>

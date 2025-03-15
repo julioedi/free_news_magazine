@@ -15,8 +15,9 @@ echo '</title>';
 do_action("before_frontend_head");
 echo '<script>const home="' . clear_home_url(theme_home_url ) . '"</script>';
 do_action( 'wp_head' );
+$styles = apply_filters(theme_domain ."/frontend/default_styles",["desktop"]);
 echo enqueue_font_awesome();
-echo enqueue_general_css();
+echo enqueue_general_css($styles);
 do_action("after_frontend_head");
 
 $bodyClass = esc_attr( implode( ' ', get_body_class() ) );

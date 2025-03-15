@@ -1,2 +1,2 @@
 *.ts
-core/meta_tables.php
+*meta_tables.php

@@ -1,5 +1,5 @@
 <?php
 
 get_header();
-the_content();
+// the_content();
 get_footer();

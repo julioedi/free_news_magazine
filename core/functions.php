@@ -18,16 +18,21 @@ function enqueue_general_css(array|null $array = null){
   $query = [];
   if ($array !== null) {
     foreach ($array as $value) {
-      $query[] = "file[]=$value";
+      $query[] = "$value";
     }
   }
-  $query = implode("&",$query);
-  $query = !empty($query) || $array == null ? "?$query" : "?file[]=";
+  $query = array_unique($query);
+  $query = implode(",",$query);
+  $query = !empty($query) || $array == null ? "?file=$query" : "";
   return '<link rel="stylesheet" href="' . clear_home_url(theme_css_uri) . "/$query\">";
 }
 
 function enqueue_font_awesome(){
   return '<link rel="stylesheet" href="' . clear_home_url(theme_fonts_uri) . '/font_awesome/load.css">';
+}
+
+function enqueue_horizontal_slider(){
+  return wp_enqueue_script(theme_domain . "_horizontal_slider",clear_home_url(theme_js_uri . "/horizontal_slider.js"));
 }
 
 

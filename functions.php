@@ -17,6 +17,7 @@
     "core/storedData",
     "core/functions",
     "core/cleartheme",
+    "core/taxonomies",
     "core/theme",
     "core/roles",
   ];

@@ -1,0 +1,45 @@
+#thumbnail_id{
+  display: none;
+}
+#cover_image{
+  width: 100%;
+  padding: var(--sp-6);
+  background-color: var(--gray-200);
+  border-radius: var(--sp-2);
+  height: 100vh;
+  max-height: 320px;
+  position: relative;
+}
+#click_upload_cover{
+  position: absolute;
+  inset:0;
+  display: flex;
+}
+#preview_cover{
+  position: absolute;
+  inset: var(--sp-2);
+}
+#preview_cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#preview_cover .delete_cover{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: var(--sp-3)
+}
+#preview_cover .delete_cover .icon_button{
+  background-color: var(--red-500);
+}
+#preview_cover:not(:empty) ~ #cover_no_image{
+  display: none;
+}
+#cover_no_image{
+  position: absolute;
+  inset: var(--sp-2);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
