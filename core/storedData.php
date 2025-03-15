@@ -11,9 +11,19 @@
     public $uri = null;
     public $home_url = null;
     public $options = [];
+    public $theme_dark = null;
+    public $def_img_uri = "";
+    public $def_image_alt = "";
+    public $def_image_sizes = array(
+      "large" => [1280,720],
+      'medium_large' =>[720,405],
+      'medium' => [480,270],
+      "thumbnail" => [266,150]
+    );
     public function __construct(){
       $this->get_request();
       $this->define_home();
+      $this->default_image_data();
       $this->accountLinks = array(
         'edit' => array(
           'link' => "/account/edit/",
@@ -37,6 +47,15 @@
         ),
       );
     }
+
+    public function default_image_data(){
+      $this->theme_dark = get_option(theme_domain. "/default_image/dark",null);
+      $this->def_img_uri = $this->theme_dark ? "/empty_dark.jpg" : "/empty.jpg";
+      $this->def_img_uri = theme_img_uri . $this->def_img_uri;
+
+      $this->def_image_alt = get_option(theme_domain. "/default_image/alt",__("Image not found",theme_lang));
+    }
+
     public function get_option($option, $default_value = false){
       if (!isset($this->options[$option])) {
         $this->options[$option] = get_option( $option, $default_value);

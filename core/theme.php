@@ -6,6 +6,35 @@
       add_action("show_password_fields",[$this,"add_custom_user_profile"],10,2);
       add_action("admin_head",[$this,'admin_head']);
       add_action('request', [$this,"custom_search_link"]);
+      add_filter("wp_get_attachment_image",[$this,"empty_attachment"],10,3);
+      add_filter("post_thumbnail_html",[$this,"empty_thumbnail"],10,4);
+    }
+    public function def_image($size = ""){
+      global $storedData;
+      $size = $storedData->def_image_sizes[$size] ?? null;
+      $size = $size ? $size : [1920,1080];
+      $html = sprintf(
+        '<img src="%s" width="%s" height="%s" alt="%s">',
+        $storedData->def_img_uri,
+        $size[0],
+        $size[1],
+        $storedData->def_image_alt
+      );
+      return $html;
+    }
+
+    public function empty_thumbnail($html, $post_id, $thumnail_id,$size){
+      if (empty($html)) {
+        $html = $this->def_image($size);
+      }
+      return $html;
+    }
+
+    public function empty_attachment($html, $attachment_id, $size){
+      if (empty($html)) {
+        $html = $this->def_image($size);
+      }
+      return $html;
     }
 
     public function custom_search_link($query_vars){
