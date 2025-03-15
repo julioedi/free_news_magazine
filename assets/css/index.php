@@ -1,7 +1,7 @@
 <?php
 // if (($_SERVER["HTTP_SEC_FETCH_SITE"] ?? null) !== 'same-origin') {
 //   header("HTTP/1.0 404 Not Found");
-//   header("Location: /");
+//   header("Location: /404");
 //   die();
 // }
 
@@ -10,12 +10,12 @@ header("Content-type: text/css", true);
 header('Content-Disposition: inline; filename="style.css"');
 echo ":root{";
 require_once root . "/colors.php";
-echo "\n/*--spaces--*/\n";
+// echo "\n/*--spaces--*/\n";
 for ($i=0; $i < 20 ; $i++) {
   $size = $i * 4;
   echo "--sp-${i}:{$size}px;";
 }
-echo "}\n";
+echo "}";
 
 function compressCss(string $css =''){
   //remove comments
@@ -31,20 +31,36 @@ function compressCss(string $css =''){
 
   return $css;
 }
-$file = $_GET["file"] ?? "desktop";
-if (is_string($file)) {
-  $path = root ."/$file.css";
+function get_file(string $value = ""){
+  $path = root ."/$value.css";
   if (file_exists($path)) {
-    $print = file_get_contents($path);
-    echo compressCss($print);
+    return file_get_contents($path);
   }
+  return null;
 }
-if (is_array($file)) {
-  foreach ($file as $value) {
-    $path = root ."/$value.css";
-    if (file_exists($path)) {
-      $print = file_get_contents($path);
-      echo compressCss($print);
+
+$files_list = [];
+$file = $_GET["file"] ?? "desktop";
+if (!is_array($file)) {
+  $file = [$file];
+}
+$importReg = '/@import\s+[\"|\'](.*?)\.css[\"|\'].*?(;\n|;\s+\n|\n|)/';
+
+$imported = [];
+foreach ($file as $value) {
+  $css = get_file($value);
+  if (!$css) continue;
+  preg_match_all($importReg,$css,$item);
+  if (!empty($item[1] ?? null)) {
+    foreach ($item[1] as $key => $name) {
+      //avoid import multiple times same css file;
+      if (isset($imported[$name])) continue;
+      $imported[$name] = true;
+
+      $tmp = get_file($name);
+      if (!$tmp) continue;
+      $css = str_replace($item[0][$key],$tmp,$css);
     }
+    echo compressCss($css);
   }
 }

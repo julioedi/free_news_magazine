@@ -5,7 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'Direct script access denied.' );
 }
 echo "<!DOCTYPE html><html " . get_language_attributes("html") . '><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0">';
+echo '<title>';
+bloginfo('name');
+$extra = is_front_page() ? get_bloginfo('description','display') : apply_filters('wp_title','');
+if (!empty($extra)) {
+	echo " | $extra";
+}
+echo '</title>';
 do_action("before_frontend_head");
+echo '<script>const home="' . clear_home_url(theme_home_url ) . '"</script>';
 do_action( 'wp_head' );
 echo enqueue_font_awesome();
 echo enqueue_general_css();

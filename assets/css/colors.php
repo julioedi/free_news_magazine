@@ -26,6 +26,8 @@ $colors = json_decode(
   file_get_contents(root . "/default_colors.json"),
   true
 );
+
+$childsRender = [];
 foreach ($customColors as $key => $value) {
   if (isset($colors[$key])) {
     $colors[$key] = array_merge($colors[$key],$value);
@@ -33,7 +35,7 @@ foreach ($customColors as $key => $value) {
     $colors[$key] = $value;
   }
 }
-echo "\n/*--palette-colors--*/\n";
+// echo "\n/*--palette-colors--*/\n";
 $codesList = [];
 foreach ($colors as $code => $value) {
   if (isset($value["color"])) {

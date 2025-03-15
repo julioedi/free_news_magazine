@@ -8,10 +8,10 @@ if (!function_exists('str_contains')) {
 
 
 function clear_home_url($url = false){
-  if (!is_string($url) || !is_localhost || !preg_match(home_regex,$url) ) {
+  if (!is_string($url)) {
     return $url;
   }
-  return preg_replace("/^(http|https)\:\/\/.*?(\/|$)/","$2",$url);
+  return preg_replace(home_regex,"/$2",$url);
 }
 
 function enqueue_general_css(array|null $array = null){
@@ -27,7 +27,7 @@ function enqueue_general_css(array|null $array = null){
 }
 
 function enqueue_font_awesome(){
-  return '<link rel="stylesheet" href="' . theme_fonts_uri . '/font_awesome/load.css">';
+  return '<link rel="stylesheet" href="' . clear_home_url(theme_fonts_uri) . '/font_awesome/load.css">';
 }
 
 
