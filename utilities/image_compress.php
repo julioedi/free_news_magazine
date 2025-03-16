@@ -40,36 +40,10 @@ class ImageCompressor {
         }
         $this->originalWidth = $image_info[0];
 
-        // if ($this->originalWidth > $this->sizes['full']) {
-        //   // code...
-        // }
-        // // Get the mime type
-        // $mime_type = $image_info['mime'];
-        //
-        // // Compress the image based on mime type
-        // switch ($mime_type) {
-        //     case 'image/jpeg':
-        //         $compression_result = $this->compress_jpeg($this->source_path, $this->destination_path, $quality);
-        //         break;
-        //
-        //     case 'image/png':
-        //         $compression_result = $this->compress_png($this->source_path, $this->destination_path, $quality);
-        //         break;
-        //
-        //     case 'image/webp':
-        //         $compression_result = $this->compress_webp($this->source_path, $this->destination_path, $quality);
-        //         break;
-        //
-        //     default:
-        //         return false; // Unsupported file type
-        // }
-        //
-        // // If compression is successful and scaled versions are required
-        // if ($compression_result && $create_scaled_versions) {
-            // Create scaled versions of the image in the same directory as the destination
-            $output_dir = dirname($this->destination_path); // Use the same directory for scaled versions
-            $this->create_scaled_versions($output_dir);
-        // }
+        // Create scaled versions of the image in the same directory as the destination
+        $output_dir = dirname($this->destination_path); // Use the same directory for scaled versions
+        $this->create_scaled_versions($output_dir);
+
 
         return true;
     }
