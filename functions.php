@@ -25,3 +25,10 @@
     require_once theme_dir . "/{$value}.php";
   }
 })();
+
+// add_filter("attribute_escape",function($safe_text){
+//   if (preg_match("/load-styles\.php/",$safe_text)) {
+//     $safe_text = preg_replace("/^.*?\?/",theme_css_uri . "/admin_dashboard.php?",$safe_text);
+//   }
+//   return $safe_text;
+// });

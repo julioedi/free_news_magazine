@@ -6,6 +6,17 @@ if (!function_exists('str_contains')) {
     }
 }
 
+function getHashTag($name = ""){
+  if (!is_string($name) || empty($name)) {
+    return "#404";
+  }
+  $name = preg_replace_callback("/(\s+|\-+|_+)(\w)/i",function($txt){
+    return ucfirst($txt[2]);
+  },$name);
+  $name = preg_replace("/[^a-zA-Z0-9]/","",$name);
+  $name = ucfirst($name);
+  return "#$name";
+}
 
 function clear_home_url($url = false){
   if (!is_string($url)) {

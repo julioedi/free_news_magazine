@@ -1,15 +1,35 @@
-#thumbnail_id{
-  display: none;
+#cover_image_column{
+  width: 64px;
+}
+.column-cover_image_column img{
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: var(--sp-2);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
+}
+#cover_image_input_wrap{
+  opacity: 0;
+  pointer-events: none;
+}
+#cover_image,
+#cover_image *{
+  box-sizing: border-box;
 }
 #cover_image{
   width: 100%;
   padding: var(--sp-6);
-  background-color: var(--gray-200);
+  background-color: rgba(0,0,0,0.06);
   border-radius: var(--sp-2);
   height: 100vh;
   max-height: 320px;
   position: relative;
 }
+#cover_image.new_tag{
+  max-height: 240px;
+  max-width: 95%;
+}
+
 #click_upload_cover{
   position: absolute;
   inset:0;

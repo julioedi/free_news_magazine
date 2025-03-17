@@ -4,6 +4,7 @@
   class Taxonomies{
     public $column = "_thumbnail_id";
     public $taxonomies = null;
+    public $taxonomy_table_col_id = "cover_image_column";
     public $featured_media_taxonomies = [
       "category",
       "post_tag"
@@ -14,11 +15,34 @@
 
       $tax = apply_filters(theme_domain . "/taxonomies/featured/edit",$this->featured_media_taxonomies);
       foreach ($tax as $value) {
-        add_action( "{$value}_edit_form_fields", [$this,"edit_categories"] );
+        //edit add cover image to taxonomies
+        add_action( "{$value}_edit_form_fields", [$this,"taxonomies_include_cover_image"] );
+        add_action( "{$value}_term_new_form_tag", [$this,"taxonomies_include_cover_image"] );
+
+        add_action( "manage_edit-{$value}_columns", [$this,"taxonomies_table_head"] );
+        add_action( "manage_{$value}_custom_column", [$this,"taxonomies_table_column"],10,3);
       }
 
-      add_action('created_term', [$this,'save_thumbnail_id']);
+      add_action('create_term', [$this,'save_thumbnail_id']);
       add_action('edited_term', [$this,'save_thumbnail_id']);
+    }
+
+    public function taxonomies_table_head($columns){
+      foreach ($columns as $key => $value) {
+        $new[$key] = $value;
+        if ($key == "cb" && !isset($columns[$this->taxonomy_table_col_id])) {
+          $new[$this->taxonomy_table_col_id] = "&nbsp;";
+        }
+      }
+      return $new;
+    }
+
+    public function taxonomies_table_column($content, $column_name, $term_id){
+      if ($column_name === $this->taxonomy_table_col_id){
+        $term = (array) get_term($term_id);
+        $content = wp_get_attachment_image($term["_thumbnail_id"] ?? "0");
+      }
+      return $content;
     }
 
     public function enqueue_admin(){
@@ -51,11 +75,18 @@
             array("%d"),
             array("%d"),
       );
+      return $term_id;
     }
 
 
-    public function edit_categories($tag){
-      global $wpdb,$pagenow;
+    public function taxonomies_include_cover_image($tag){
+      global $pagenow;
+      $is_new = $pagenow == "edit-tags.php";
+      if ($is_new) {
+
+        //prevent open form tag;
+        echo ">";
+      }
       $list = (array) $tag;
       $thumnail_id = $list["_thumbnail_id"] ?? "0";
       $is_image = wp_get_attachment_url($thumnail_id);
@@ -65,9 +96,10 @@
       }
       $preview = sprintf('<div id="preview_cover">%s</div>',$is_image);
       ?>
-        <input hidden id="thumbnail_id" type="text" name="_thumbnail_id" value="<?php echo $list["_thumbnail_id"] ?? "0"  ?>">
-        <div id="cover_image">
-          <!-- <div id="click_upload_cover"></div> -->
+        <div id="cover_image" class="form-field term-thumbnail_id-wrap <?php echo $is_new ? "new_tag" : "edit_tag" ?>">
+          <div id="cover_image_input_wrap">
+              <input id="thumbnail_id" type="text" name="_thumbnail_id" value="<?php echo $list["_thumbnail_id"] ?? "0"  ?>">
+          </div>
           <?php echo $preview ?>
           <div id="cover_no_image">
               <div class="theme_btn"><?php _e("Select featured image",theme_lang) ?></div>
@@ -75,6 +107,10 @@
         </div>
       <?php
 
+      if ($is_new) {
+        //prevent open form tag;
+        echo "<div></div";
+      }
       return $tag;
     }
 

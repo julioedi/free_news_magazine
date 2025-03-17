@@ -2,6 +2,7 @@ jQuery(document).ready(function($){
   var mediaUploader;
   const $preview = $("#preview_cover");
   const $inputVal = $('#thumbnail_id');
+  const $cover_image = $("#cover_image.new_tag");
   const deletebtn = '<div class="delete_cover"><div class="icon_button"><i class="fa-solid fa-trash"></i></div></div>';
   $(document).on("click","#cover_no_image .theme_btn, #preview_cover img",() =>{
     // If the uploader object exists, reopen the dialog
@@ -23,12 +24,31 @@ jQuery(document).ready(function($){
         $preview.html(`<img src="${attachment.url}" data-id="${attachment.id}">${deletebtn}`);
 
         $inputVal.attr("value",attachment.id);
+        $inputVal.trigger("change")
     });
 
     mediaUploader.open();
   });
-  $(document).on("click","#preview_cover .delete_cover",() =>{
+  const cleanPreview = () =>{
     $preview.html("");
     $inputVal.attr("value","0");
+  }
+  $inputVal.on("change",function(){
+    console.log("changed");
   })
+  $(document).on("click","#preview_cover .delete_cover",cleanPreview);
+
+
+  const $addtag = document.getElementById("addtag");
+  if ($addtag) {
+    const observer = new MutationObserver(mutations => {
+        if (document.querySelector('.notice-success[role="alert"]')) {
+          cleanPreview();
+        }
+    });
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+  }
 });

@@ -11,9 +11,13 @@ trait Categories
   public $categories_taxonomy = null;
   public $categories_thumbs = array();
 
-  public function get_categories(){
+  public function get_categories(array $props = []){
     if (!$this->categories) {
-      $this->categories = get_categories();
+      $props = array_merge(
+        array('hide_empty' => 0 ),
+        $props,
+      );
+      $this->categories = get_categories($props);
     }
     return $this->categories;
   }

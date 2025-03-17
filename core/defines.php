@@ -6,6 +6,7 @@ $paths = array(
  "js"  => "/assets/js",
  "fonts"  => "/assets/fonts",
  "templates" => "/templates",
+ "utilities" => "/utilities,"
 );
 
 if (!defined("theme_domain")) {
